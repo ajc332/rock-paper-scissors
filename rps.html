@@ -5,31 +5,67 @@
 <body>
 <script>
 
-    let playerSelection = prompt("Rock? Paper? Scissors? Shoot!");
+    let computerScore = 0;
+    let playerScore = 0;
 
     function computerPlay() {
         const computerChoices = ['rock', 'paper', 'scissors'];
         let randomAnswer = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        return randomAnswer
+        return randomAnswer;
     }
 
-    function playRound(playerSelection, computerSelection) {
-        if (computerSelection == 'rock') {
-            return "You tie! Try again!";
-        } else if (computerSelection == 'paper') {
-            return "You lose! Paper beats Rock!";
-        } else if (computerSelection == 'scissors') {
-            return "You win! Lucky try!";
+    function playRound() {
+        let playerSelection = prompt("Rock? Paper? Scissors? Shoot!").toLowerCase()
+        const computerSelection = computerPlay()
+
+        if (computerSelection === 'rock' && playerSelection == 'rock') {
+            return "Rock vs. Rock ties! Try again!";
+        } else if (computerSelection === 'rock' && playerSelection === 'paper') {
+            ++playerScore;
+            return "Your Paper covers my Rock. I lost? Impossible!";
+        } else if (computerSelection === 'rock' && playerSelection === 'scissors') {
+            ++computerScore;
+            return "My Rock smashes those Scissors! Aha!";
+
+        } else if (computerSelection === 'paper' && playerSelection === 'paper') {
+            return "Paper vs. Paper ties! Try again!";
+        } else if (computerSelection === 'paper' && playerSelection === 'rock') {
+            ++computerScore;
+            return "My Paper covers your Rock. I Win!";
+        } else if (computerSelection === 'paper' && playerSelection === 'scissors') {
+            ++playerScore;
+            return "Your Scissors cut my Paper! That was my last piece!";
+
+        } else if (computerSelection === 'scissors' && playerSelection === 'scissors') {
+            return "Scissors vs. Scissors ties! Try again!";
+        } else if (computerSelection === 'scissors' && playerSelection === 'rock') {
+            ++playerScore;
+            return "Your Rock smashes my Scissors. I'm telling!";
+        } else if (computerSelection === 'scissors' && playerSelection === 'paper') {
+            ++computerScore;
+            return "My Scissors cut your Paper. Recycle that!";
         } else {
-            return "Huh?";
+            return "Say what?";
         }
     }
-        
-    const computerSelection = computerPlay()
-    console.log(playRound(playerSelection, computerSelection))
+
+    function game(round) {
+        for (let round = 0; round < 5; round++) {
+        console.log(playRound());
+        }
+        return winner();
+    }
+
+    function winner() {
+        if (computerScore < playerScore) {
+            console.log("You have done it. You beat me!");
+        } else if (computerScore > playerScore) {
+            console.log("I have done it. I beat you!");
+        } else {
+            console.log("A tie? A tie!");
+        }    
+    }
 
 </script>
 </body>
 </html>
-
-/////playRound needs work- only get Huh- and the prompt responses dont line up with input///
